@@ -7,58 +7,56 @@
 
 using namespace std;
 
+const double pi = 3.14;
+
 class Cell
 {
     string type =""; // тип клетки
     vector<string> org {""}; // список органелл
-
     vector<double> r {0.0}; // радиус клетки
 
     public:
         Cell(); // конструктор по умолчанию
         Cell (const string& type); // параметризованный конструктор
-        // // параметризованный конструктор с заданным массивом списка органелл
-        // Cell(unsigned o, vector<string> arr); 
-        // Cell(const Cell &ob); // конструктор копирования
+        // параметризованный конструктор с заданным массивом списка органелл
+        Cell(const string& type, vector<string> org, vector<double> r); 
+        Cell(const Cell &ob); // конструктор копирования
 
-        // ~Cell() // деструктор
-        // { }
+        ~Cell() // деструктор
+        { }
 
-        // void setCell(unsigned o, const vector<string>& arr)
-        // {
-        //     if (o <= arr.size())
-        //     {
-        //         type = o;
-        //         org.resize(o);
-        //         org.assign(arr.begin(), arr.begin() + k);
-        //     }
-        //     else
-        //     {
-        //         cerr << "Error!" << endl;
-        //     }
-        // }
+        //set
+        void setType(string t){ type = t; };
+        void setOrg(const vector<string>& org)
+        {
+            this->org = org;
+        }
+        void setR(string t, vector<double> r)
+        {
+            this->r = r;
+        }
 
-        // void setType(unsigned o){ type = o; };
+        //get
+        string getType() const { return type; };
+        const vector<string> getOrg() const { return org;}
+        const vector<double> getR() const { return r;}
 
-        // unsigned getType() const { return type; };
+        // вычисление объема клетки
+        void Volume(double v);
 
-        // const vector<string> getOrg() const { return org;}
+        // перегрузка
+        Cell operator+(const Cell& other) const;
 
-        // // вычисление объема клетки
-        // void Volume(double x);
+        const Cell& operator = (const Cell& other)
+        {
+            if (&other == this) return *this;
+            type = other.type;
+            org = other.org;
+            r = other.r;
+            return *this;
+        }
 
-        // // перегрузка
-        // Cell operator+(const Cell& other) const;
-
-        // const Cell& operator = (const Cell& other)
-        // {
-        //     if (&other == this) return *this;
-        //     type = other.type;
-        //     org = other.org;
-        //     return *this;
-        // }
-
-        // friend ostream& operator<<(ostream& mystream, const Cell &obj);
-        // friend istream& operator>>(istream& mystream, Cell &obj);
+        friend ostream& operator<<(ostream& mystream, const Cell &obj);
+        friend istream& operator>>(istream& mystream, Cell &obj);
 };
 #endif
