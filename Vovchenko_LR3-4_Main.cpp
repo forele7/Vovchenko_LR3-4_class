@@ -3,57 +3,57 @@
 
 using namespace std;
 
-struct Menu1
-{
-    string title;
-    function<void()> action;
-};
+// struct Menu1
+// {
+//     string title;
+//     function<void()> action;
+// };
 
 int main()
 {
-    srand(time(NULL));
-    
-    map<int, Menu1> menu =
-    {
-        {1, {"Create vector Aeroflot", createAeroflotFromFile(AEROFLOT1)}},
-        {2, {"Show vector Aeroflot", ShowAeroflot}},
-        {3, {"Add vector Aeroflot", addAeroflotToData}},
-        {4, {"Find Arrival", ShowByArrival}},
-        {5, {"Find Day", ShowByDay}},
-        {6, {"Find Day and Time", ShowByDayAndTime}},
-    };
+    // srand(time(NULL));
 
-    int choice = 0;
+    // map<int, Menu1> menu =
+    // {
+    //     {1, {"Create vector Aeroflot", createAeroflotFromFile(AEROFLOT1)}},
+    //     {2, {"Show vector Aeroflot", ShowAeroflot}},
+    //     {3, {"Add vector Aeroflot", addAeroflotToData}},
+    //     {4, {"Find Arrival", ShowByArrival}},
+    //     {5, {"Find Day", ShowByDay}},
+    //     {6, {"Find Day and Time", ShowByDayAndTime}},
+    // };
 
-    cout << "Menu: " << endl;
-    for (const auto& item : menu)
-    {
-        cout << "Task: " <<item.first << ". " << item.second.title << endl;
-    }
+    // int choice = 0;
 
-    cout << "0. Quit." << endl;
+    // cout << "Menu: " << endl;
+    // for (const auto& item : menu)
+    // {
+    //     cout << "Task: " <<item.first << ". " << item.second.title << endl;
+    // }
 
-    while (true)
-    {
-    Enter_Number(choice, "Enter Number: ")();
-    if (choice == 0)
-    {
-        cout << "Aeroflot." << endl;
-        break;
-    }
+    // cout << "0. Quit." << endl;
 
-    cout << endl;
+    // while (true)
+    // {
+    // Enter_Number(choice, "Enter Number: ")();
+    // if (choice == 0)
+    // {
+    //     cout << "Aeroflot." << endl;
+    //     break;
+    // }
 
-    if (menu.find(choice) != menu.end())
-    {
-        menu[choice].action();
-    }
-    else
-    {
-        cout << "Invalid input.";
-    }
+    // cout << endl;
 
-    cout << endl << endl;
-    }
+    // if (menu.find(choice) != menu.end())
+    // {
+    //     menu[choice].action();
+    // }
+    // else
+    // {
+    //     cout << "Invalid input.";
+    // }
+
+    // cout << endl << endl;
+    // }
     return 0;
 }
