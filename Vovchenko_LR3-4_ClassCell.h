@@ -13,14 +13,16 @@ class Cell
 {
     string type =""; // тип клетки
     vector<string> org {""}; // список органелл
-    vector<double> r {0.0}; // радиус клетки
+    vector<double> size {0.0}; // размер клетки по 3-м измерениям
+
+    //vector<double> r {0.0}; // радиус клетки
 
     public:
         Cell(); // конструктор по умолчанию
         Cell (const string& type); // параметризованный конструктор
         // параметризованный конструктор с заданным массивом списка органелл
-        Cell(const string& type, vector<string> org, vector<double> r); 
-        Cell(const Cell &ob); // конструктор копирования
+        Cell(const string& type, vector<string>& org, vector<double>& size); 
+        Cell(const Cell& ob); // конструктор копирования
 
         ~Cell() // деструктор
         { }
@@ -31,15 +33,20 @@ class Cell
         {
             this->org = org;
         }
-        void setR(string t, vector<double> r)
+        void setSize(string s, vector<double> size)
         {
-            this->r = r;
+            this->size = size;
         }
+        // void setR(string t, vector<double> r)
+        // {
+        //     this->r = r;
+        // }
 
         //get
         string getType() const { return type; };
         const vector<string> getOrg() const { return org;}
-        const vector<double> getR() const { return r;}
+        const vector<double> getSize() const { return size;}
+        //const vector<double> getR() const { return r;}
 
         // вычисление объема клетки
         void Volume(double v);
@@ -52,7 +59,8 @@ class Cell
             if (&other == this) return *this;
             type = other.type;
             org = other.org;
-            r = other.r;
+            size = other.size;
+            //r = other.r;
             return *this;
         }
 

@@ -11,20 +11,20 @@ Cell::Cell(const string& type): Cell()
     this->type = type;
 }
 
-Cell::Cell(const string& type, vector<string> org,  vector<double> r): Cell(type)
+Cell::Cell(const string& type, vector<string> org,  vector<double> size): Cell(type)
 {
     this->org = org;    
-    this->r = r;
+    this->size = size;
 }
 
 // копирование
-Cell::Cell(const Cell& other): type(other.type), org(other.org) {}
+Cell::Cell(const Cell& other): type(other.type), org(other.org), size(other.size) {}
 
 void Volume(double v = 1.0)
 {
     double s;
     int i;
-    for (s = r[0], i <= 10; i++)
+    for (s = size[0], i <= 10; i++)
     {
         v = (4*pi*s*s*s)/3;
     }
