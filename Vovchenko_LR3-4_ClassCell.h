@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -13,17 +14,17 @@ class Cell
 {
     string type =""; // тип клетки
     vector<string> org {""}; // список органелл
-    vector<double> size {0.0}; // размер клетки по 3-м измерениям
-
-    //vector<double> r {0.0}; // радиус клетки
+    vector<double> sizee; // размер клетки по 3-м измерениям
 
     public:
         Cell(); // конструктор по умолчанию
         Cell (const string& type); // параметризованный конструктор
-        // параметризованный конструктор с заданным массивом списка органелл
-        Cell(const string& type, vector<string>& org, vector<double>& size); 
-        Cell(const Cell& ob); // конструктор копирования
 
+        // параметризованный конструктор с заданным массивом списка органелл
+        Cell(const string& type, vector<string>& org, vector<double>& sizee); 
+        Cell(const Cell& ob); // конструктор копирования
+        // присваивание
+        Cell& operator = (const Cell& other);
         ~Cell() // деструктор
         { }
 
@@ -33,38 +34,92 @@ class Cell
         {
             this->org = org;
         }
-        void setSize(string s, vector<double> size)
+        void setSize(vector<double> size)
         {
-            this->size = size;
+            this->sizee = sizee;
         }
-        // void setR(string t, vector<double> r)
-        // {
-        //     this->r = r;
-        // }
 
         //get
         string getType() const { return type; };
         const vector<string> getOrg() const { return org;}
-        const vector<double> getSize() const { return size;}
-        //const vector<double> getR() const { return r;}
+        const vector<double> getSize() const { return sizee;}
+
+        // void input();
+
+        // void show() const;
 
         // вычисление объема клетки
-        void Volume(double v);
+        double Volume() const;
 
         // перегрузка
-        Cell operator+(const Cell& other) const;
-
-        const Cell& operator = (const Cell& other)
-        {
-            if (&other == this) return *this;
-            type = other.type;
-            org = other.org;
-            size = other.size;
-            //r = other.r;
-            return *this;
-        }
+        double operator+(const Cell& other) const;
+        Cell& operator++(); // префиксный инкремент
+        Cell operator++(int); // постфиксный инкремент
 
         friend ostream& operator<<(ostream& mystream, const Cell &obj);
         friend istream& operator>>(istream& mystream, Cell &obj);
+
 };
+
+bool CellInput (string input)
+{
+    if (input.empty()) 
+    {
+        return false;
+    }
+    try
+    {
+        int number = stoi(input);
+        if (number < 0)
+        {
+            return false;
+        }
+    }
+    catch (...)
+    {
+        return false;
+    }
+    return true;
+}
+
+function<void()> Enter_Number(int& varLink, string label)
+{
+    return [&varLink, label]()
+    {
+        string get_input;
+        cout << label << "= ";
+        getline(cin, get_input);
+        while (!CellInput(get_input))
+        {
+            cout << label << "= ";
+            getline(cin, get_input);
+        }
+        varLink = stoi(get_input);
+    };
+}
+
+function<void()> Enter_NumberD(double& varLink, string label)
+{
+    return [&varLink, label]()
+    {
+        string get_input;
+        cout << label << "= ";
+        getline(cin, get_input);
+        while (!CellInput(get_input))
+        {
+            cout << label << "= ";
+            getline(cin, get_input);
+        }
+        varLink = stod(get_input);
+    };
+}
+
+function<void()> Enter_String(string& varLink, string label)
+{
+    return [&varLink, label]()
+    {
+        cout << label << " = ";
+        getline(cin, varLink);
+    }; 
+}
 #endif
